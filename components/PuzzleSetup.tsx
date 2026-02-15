@@ -774,8 +774,8 @@ export const PuzzleSetup: React.FC<PuzzleSetupProps> = ({
   }, [framePixels, frameShape, isShapeRect]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen w-full bg-[#1a110d] bg-[url('https://www.transparenttextures.com/patterns/dark-wood.png')] text-[#e6d5c3]">
-      <div className="absolute top-0 w-full h-16 bg-gradient-to-b from-[#2e1d15] to-transparent flex justify-center items-center border-b border-[#5c3a2a]">
+    <div className="h-screen w-full overflow-y-auto bg-[#1a110d] bg-[url('https://www.transparenttextures.com/patterns/dark-wood.png')] text-[#e6d5c3]">
+      <div className="sticky top-0 z-20 w-full h-16 bg-gradient-to-b from-[#2e1d15] to-[#2e1d15]/85 flex justify-center items-center border-b border-[#5c3a2a]">
         <div className="bg-[#3e2723] px-12 py-2 border-x-4 border-b-4 border-[#8B4513] rounded-b-lg shadow-lg relative">
           <div className="absolute top-1 left-2 w-2 h-2 rounded-full bg-[#c8a656]" />
           <div className="absolute top-1 right-2 w-2 h-2 rounded-full bg-[#c8a656]" />
@@ -783,11 +783,12 @@ export const PuzzleSetup: React.FC<PuzzleSetupProps> = ({
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-12 w-full max-w-6xl p-8 items-center md:items-start mt-16">
-        <div className="flex-1 w-full max-w-xl flex flex-col items-center">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+        <div className="flex flex-col xl:flex-row gap-6 xl:gap-8 items-start">
+        <div className="flex-1 w-full xl:max-w-3xl flex flex-col items-center">
           <div
             ref={previewAreaRef}
-            className="group w-full aspect-[4/3] bg-[#0c0907] border-4 border-[#5c3a2a] rounded-lg shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] flex items-center justify-center relative overflow-hidden"
+            className="group w-full h-[min(54vh,560px)] min-h-[280px] bg-[#0c0907] border-4 border-[#5c3a2a] rounded-lg shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] flex items-center justify-center relative overflow-hidden"
             onPointerMove={handleFramePointerMove}
             onPointerUp={endFrameInteraction}
             onPointerCancel={endFrameInteraction}
@@ -933,7 +934,7 @@ export const PuzzleSetup: React.FC<PuzzleSetupProps> = ({
           />
         </div>
 
-        <div className="w-full md:w-96 bg-[#2c1e16]/90 p-8 rounded-lg border border-[#5c3a2a] shadow-2xl backdrop-blur-sm">
+        <div className="w-full xl:w-96 bg-[#2c1e16]/90 p-6 md:p-8 rounded-lg border border-[#5c3a2a] shadow-2xl backdrop-blur-sm">
           <h2 className="text-xl font-bold text-[#F2D086] mb-6 flex items-center gap-2 border-b border-[#5c3a2a] pb-4">
             <Settings size={20} /> Configuration
           </h2>
@@ -1006,6 +1007,7 @@ export const PuzzleSetup: React.FC<PuzzleSetupProps> = ({
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

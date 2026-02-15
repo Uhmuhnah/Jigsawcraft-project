@@ -25,7 +25,7 @@ function App() {
   };
 
   return (
-    <div className="w-full h-screen overflow-hidden font-sans">
+    <div className="w-full min-h-screen font-sans pb-10">
       {appState === 'MENU' && (
         <PuzzleSetup
           onStart={handleStartGame}
@@ -43,6 +43,18 @@ function App() {
           onExit={handleExit}
         />
       )}
+
+      <footer className="fixed bottom-0 left-0 right-0 z-[120] border-t border-[#5c3a2a] bg-[#1a110d]/92 backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-4 py-2 text-xs text-[#d4b491] flex items-center justify-center gap-4">
+          <a href="/about.html" className="hover:text-[#F2D086]">About</a>
+          <span className="text-[#8B4513]">|</span>
+          <a href="/news.html" className="hover:text-[#F2D086]">News</a>
+          <span className="text-[#8B4513]">|</span>
+          <a href="/privacy.html" className="hover:text-[#F2D086]">Privacy Policy</a>
+          <span className="text-[#8B4513]">|</span>
+          <a href="/terms.html" className="hover:text-[#F2D086]">Terms of Service</a>
+        </div>
+      </footer>
     </div>
   );
 }
