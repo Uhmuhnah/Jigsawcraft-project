@@ -1271,14 +1271,39 @@ const CameraFitController = ({
 // --- UI Components ---
 
 export const PuzzleGame: React.FC<PuzzleGameProps> = ({ image, settings, activeFrame = null, onExit }) => {
+  const [viewportSize, setViewportSize] = useState(() => {
+    if (typeof window === 'undefined') return { width: 1920, height: 1080 };
+    const vv = window.visualViewport;
+    return {
+      width: Math.max(1, Math.round(vv?.width ?? window.innerWidth)),
+      height: Math.max(1, Math.round(vv?.height ?? window.innerHeight)),
+    };
+  });
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const updateViewport = () => {
+      const vv = window.visualViewport;
+      setViewportSize({
+        width: Math.max(1, Math.round(vv?.width ?? window.innerWidth)),
+        height: Math.max(1, Math.round(vv?.height ?? window.innerHeight)),
+      });
+    };
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+    window.visualViewport?.addEventListener('resize', updateViewport);
+    return () => {
+      window.removeEventListener('resize', updateViewport);
+      window.visualViewport?.removeEventListener('resize', updateViewport);
+    };
+  }, []);
   const boardImage = useMemo(() => createPreparedPuzzleImage(image), [image]);
   const boardWidth = boardImage.width;
   const boardHeight = boardImage.height;
   const cameraFovDeg = 40;
   const cameraFovRad = (cameraFovDeg * Math.PI) / 180;
   const topUiSafePx = 72;
-  const viewportInnerW = typeof window !== 'undefined' ? window.innerWidth : 1920;
-  const viewportInnerH = typeof window !== 'undefined' ? window.innerHeight : 1080;
+  const viewportInnerW = viewportSize.width;
+  const viewportInnerH = viewportSize.height;
   const visibleViewportH = Math.max(1, viewportInnerH - topUiSafePx);
   const viewportAspect = Math.max(0.5, viewportInnerW / visibleViewportH);
   const verticalOcclusionScale = viewportInnerH / visibleViewportH;
@@ -1429,7 +1454,7 @@ export const PuzzleGame: React.FC<PuzzleGameProps> = ({ image, settings, activeF
     const worldHeight = Math.max(1, maxY - minY);
     const centerX = (minX + maxX) / 2;
     const centerY = (minY + maxY) / 2;
-    const viewportAspect = Math.max(0.5, window.innerWidth / Math.max(1, window.innerHeight));
+    const viewportAspect = Math.max(0.5, viewportSize.width / Math.max(1, viewportSize.height));
     const fovRad = (40 * Math.PI) / 180;
     const fitByHeight = worldHeight / (2 * Math.tan(fovRad / 2));
     const fitByWidth = worldWidth / (2 * Math.tan(fovRad / 2) * viewportAspect);
@@ -1443,7 +1468,7 @@ export const PuzzleGame: React.FC<PuzzleGameProps> = ({ image, settings, activeF
       version: Date.now(),
       shake,
     };
-  }, [boardHeight, boardWidth, maxZoomDistance, minZoomDistance]);
+  }, [boardHeight, boardWidth, maxZoomDistance, minZoomDistance, viewportSize.height, viewportSize.width]);
 
   const handleReferenceToggle = useCallback(() => {
     const wasOpen = showBox;

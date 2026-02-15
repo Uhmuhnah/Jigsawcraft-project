@@ -774,7 +774,7 @@ export const PuzzleSetup: React.FC<PuzzleSetupProps> = ({
   }, [framePixels, frameShape, isShapeRect]);
 
   return (
-    <div className="h-screen w-full overflow-y-auto bg-[#1a110d] bg-[url('https://www.transparenttextures.com/patterns/dark-wood.png')] text-[#e6d5c3]">
+    <div className="h-[100dvh] w-full overflow-y-auto bg-[#1a110d] bg-[url('https://www.transparenttextures.com/patterns/dark-wood.png')] text-[#e6d5c3]">
       <div className="sticky top-0 z-20 w-full h-16 bg-gradient-to-b from-[#2e1d15] to-[#2e1d15]/85 flex justify-center items-center border-b border-[#5c3a2a]">
         <div className="bg-[#3e2723] px-12 py-2 border-x-4 border-b-4 border-[#8B4513] rounded-b-lg shadow-lg relative">
           <div className="absolute top-1 left-2 w-2 h-2 rounded-full bg-[#c8a656]" />
@@ -788,7 +788,7 @@ export const PuzzleSetup: React.FC<PuzzleSetupProps> = ({
         <div className="flex-1 w-full xl:max-w-3xl flex flex-col items-center">
           <div
             ref={previewAreaRef}
-            className="group w-full h-[min(54vh,560px)] min-h-[280px] bg-[#0c0907] border-4 border-[#5c3a2a] rounded-lg shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] flex items-center justify-center relative overflow-hidden"
+            className="group w-full h-[min(54dvh,560px)] min-h-[280px] bg-[#0c0907] border-4 border-[#5c3a2a] rounded-lg shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] flex items-center justify-center relative overflow-hidden"
             onPointerMove={handleFramePointerMove}
             onPointerUp={endFrameInteraction}
             onPointerCancel={endFrameInteraction}
@@ -869,6 +869,9 @@ export const PuzzleSetup: React.FC<PuzzleSetupProps> = ({
           </div>
 
           <p className="mt-4 text-[#8B4513] text-sm italic">Tip: use higher-resolution images for 500+ pieces.</p>
+          <p className="mt-1 text-[#b7926f] text-xs">
+            Upload only images you own or have permission to use.
+          </p>
 
           {showFrameTools && (
             <div className="mt-3 w-full rounded border border-[#5c3a2a] bg-[#2c1e16]/80 p-3 text-sm">
